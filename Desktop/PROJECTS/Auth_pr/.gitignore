@@ -1,0 +1,11 @@
+# Ignore everything outside project scope
+../*
+../../*
+../../../*
+*.lnk
+*.ini
+*.dat
+*.log
+.cache/
+.vscode/
+node_modules/
