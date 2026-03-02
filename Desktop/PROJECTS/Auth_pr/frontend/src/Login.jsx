@@ -1,6 +1,6 @@
 import { useState } from "react";
-import api from "./api";
 import { useNavigate } from "react-router-dom";
+import api from "./api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,16 +15,63 @@ export default function Login() {
       localStorage.setItem("refreshToken", data.refreshToken);
       navigate("/profile");
     } catch (err) {
-      alert(err.response?.data?.error || "Login failed");
+      console.error(err);
+      alert("Login failed. Please check your credentials.");
     }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-      <button type="submit">Login</button>
-    </form>
+    <div className="flex h-[700px] w-full">
+      <div className="w-full hidden md:inline-block">
+        <img
+          className="h-full"
+          src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/leftSideImage.png"
+          alt="leftSideImage"
+        />
+      </div>
+
+      <div className="w-full flex flex-col items-center justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="md:w-96 w-80 flex flex-col items-center justify-center"
+        >
+          <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
+          <p className="text-sm text-gray-500/90 mt-3">
+            Welcome back! Please sign in to continue
+          </p>
+
+          {/* Email input */}
+          <div className="flex items-center w-full border border-gray-300/60 h-12 rounded-full pl-6 gap-2 mt-6">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email id"
+              className="bg-transparent text-gray-500/80 outline-none text-sm w-full h-full"
+              required
+            />
+          </div>
+
+          {/* Password input */}
+          <div className="flex items-center w-full border border-gray-300/60 h-12 rounded-full pl-6 gap-2 mt-6">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="bg-transparent text-gray-500/80 outline-none text-sm w-full h-full"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
