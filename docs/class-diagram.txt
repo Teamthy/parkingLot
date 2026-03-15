@@ -1,0 +1,52 @@
+﻿
+Parking Lot Class Diagram (Plain Text)
+
+ParkingLot 1..* Floor 1..* Spot
+Spot 0..1 Vehicle
+Ticket -> Vehicle
+Ticket -> Spot
+
+ParkingLot
+- id: string
+- floors: Floor[]
+- ratePerHour: number
+- findSpotFor(vehicle)
+- park(vehicle, entryTime?)
+- calculateFee(ticket, atTime?)
+- exit(ticket, atTime?)
+
+Floor
+- id: string
+- level: number
+- spots: Spot[]
+- findSpotFor(vehicle)
+- availableCountByType()
+
+Spot
+- id: string
+- type: SpotType
+- currentVehicle?: Vehicle
+- isOccupied()
+- canFit(vehicle)
+- occupy(vehicle)
+- release()
+
+Vehicle
+- id: string
+- type: VehicleType
+- plate: string
+
+Ticket
+- id: string
+- vehicleId: string
+- spotId: string
+- entryTime: Date
+- exitTime?: Date
+- status: TicketStatus
+- markPaid()
+- close(exitTime)
+
+Enums
+- VehicleType: MOTORCYCLE | COMPACT | LARGE
+- SpotType: MOTORCYCLE | COMPACT | LARGE
+- TicketStatus: ACTIVE | PAID | CLOSED
